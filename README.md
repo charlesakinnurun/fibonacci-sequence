@@ -15,87 +15,6 @@ With the seed values:
 
 <p>This ratio is found throughout nature, art, and architecture because it is visually pleasing and allows for efficient growth patterns.</p>
 
-### 📁 Python Implementation
-```python
-"""
-Fibonacci Sequence Implementation in Python
-
-This script provides multiple ways to calculate Fibonacci numbers:
-1. Iterative Approach (Most efficient for basic use)
-2. Recursive Approach (With Memoization for performance)
-3. Generator Approach (Best for memory efficiency)
-"""
-
-def fibonacci_iterative(n):
-    '''
-    Generate Fibonacci sequence up to n terms using a loop
-    Time Complexity: O(n)
-    Space Complexity: O(n) to store the list
-    '''
-    if n<= 0:
-        return []
-    elif n == 1:
-        return[0]
-    
-    sequence = [0,1]
-    while len(sequence) < n:
-        next_val = sequence[-1] + sequence[-2]
-        sequence.append(next_val)
-
-    return sequence
-
-def fibonacci_generator(n):
-    """
-    A generator that yields Fibonacci numbers one by one
-    This is memory efficient because it doesn't store the whole list
-    """
-    a,b = 0,1
-    for _ in range(n):
-        yield a
-        a,b = b, a + b
-
-# Using a dictionary for "memoization" to speed up recursion
-memo = {
-    0:0,
-    1:1
-}
-
-def fibonacci_recursive(n):
-    """
-    Calculate the nth Fibonacci number using recursion and memoization
-    Without memoization, this would be O(2^n), but with it, it's O(n).
-    """
-    if n in memo:
-        return memo[n]
-    
-    memo[n] = fibonacci_recursive(n-1) - fibonacci_recursive(n-2)
-    return memo[n]
-
-
-def main():
-    # Numbers of terms to generate
-    num_terms = 20
-
-    print(f"----- Fibonacci Sequence (First {num_terms} terms) -----")
-
-    # 1. Iterative Result
-    iter_res = fibonacci_iterative(num_terms)
-    print(f"Iterative: {iter_res}")
-
-    # 2. Generator Result
-    gen_res = list(fibonacci_generator(num_terms))
-    print(f"Generator: {gen_res}")
-
-    # 3. Recursive Result (getting the 10th number specifically)
-    nth = 10
-    val = fibonacci_recursive(nth)
-    print(f"The {nth}th Fibonacci number (recursive): {val}")
-
-
-if __name__ == "__main__":
-    main()
-```
-
 ### Where You’ll See It in Nature
 <p>The Fibonacci sequence isn't just a classroom exercise; it appears in the physical world in fascinating ways:</p>
 
@@ -106,3 +25,153 @@ if __name__ == "__main__":
 - Shells: The "Golden Spiral" (based on Fibonacci squares) is famously seen in the shell of the chambered nautilus.
 
 - Galaxies: The spiral arms of the Milky Way and other galaxies often follow the path of the Golden Spiral.
+
+-->
+
+
+
+
+
+
+
+
+
+<!-- # 📘 Fibonacci Sequence – README -->
+
+<h1 align="center">Fibonacci Sequence</h1>
+
+## Overview
+
+The **Fibonacci Sequence** is a series of numbers in which each number is the sum of the two preceding numbers.
+
+It starts with:
+
+```
+0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ...
+```
+<!--
+Mathematically, it is defined as:
+
+[
+F(0) = 0, \quad F(1) = 1, \quad F(n) = F(n-1) + F(n-2) \text{ for } n \ge 2
+]
+-->
+The Fibonacci sequence appears in nature, computer science, mathematics, and art, such as in plant patterns, algorithms, and the Golden Ratio.
+
+---
+
+## ⚙️ How Fibonacci Sequence Works
+
+1. Start with `0` and `1`.
+2. Add the last two numbers to get the next number.
+3. Repeat until the desired number of terms is reached.
+
+Example for first 10 numbers:
+
+```
+0 + 1 = 1
+1 + 1 = 2
+1 + 2 = 3
+2 + 3 = 5
+3 + 5 = 8
+5 + 8 = 13
+8 + 13 = 21
+13 + 21 = 34
+```
+
+Resulting sequence:
+
+```
+0, 1, 1, 2, 3, 5, 8, 13, 21, 34
+```
+
+---
+
+## 🧠 Python Examples
+
+### Example 1 — Recursive Approach
+
+```python
+def fibonacci_recursive(n):
+    if n <= 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fibonacci_recursive(n-1) + fibonacci_recursive(n-2)
+
+# Print first 10 Fibonacci numbers
+for i in range(10):
+    print(fibonacci_recursive(i), end=" ")
+# Output: 0 1 1 2 3 5 8 13 21 34
+```
+
+* Time complexity: O(2ⁿ)
+* Simple but inefficient for large `n`.
+
+---
+
+### Example 2 — Iterative Approach
+
+```python
+def fibonacci_iterative(n):
+    fib_seq = [0, 1]
+    for i in range(2, n):
+        fib_seq.append(fib_seq[i-1] + fib_seq[i-2])
+    return fib_seq[:n]
+
+print(fibonacci_iterative(10))
+# Output: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+```
+
+* Time complexity: O(n)
+* Space complexity: O(n)
+* Efficient and easy to implement.
+
+---
+
+### Example 3 — Space-Optimized Iterative
+
+```python
+def fibonacci_optimized(n):
+    a, b = 0, 1
+    result = []
+    for _ in range(n):
+        result.append(a)
+        a, b = b, a + b
+    return result
+
+print(fibonacci_optimized(10))
+# Output: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+```
+
+* Time complexity: O(n)
+* Space complexity: O(1)
+* Uses minimal memory.
+
+---
+
+## ⏱️ Time Complexity Comparison
+
+| Method              | Time Complexity | Space Complexity     |
+| ------------------- | --------------- | -------------------- |
+| Recursive           | O(2ⁿ)           | O(n) recursion stack |
+| Iterative           | O(n)            | O(n)                 |
+| Optimized Iterative | O(n)            | O(1)                 |
+
+---
+
+## 📌 When to Use Fibonacci Sequence
+
+* Mathematical modeling and algorithm design
+* Recursion practice in programming
+* Modeling natural growth patterns (plants, shells, etc.)
+* Dynamic programming examples and exercises
+
+---
+
+## 🏁 Summary
+
+The Fibonacci Sequence is a fundamental mathematical series.
+For small inputs, recursion works, but for larger inputs, iterative or space-optimized methods are more efficient and practical.
+
